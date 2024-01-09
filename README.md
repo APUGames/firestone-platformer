@@ -1,1 +1,3 @@
-# firestone-platformer
+# Platformer game
+
+By Firestone
