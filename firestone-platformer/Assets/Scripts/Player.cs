@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public ParticleSystem dust;
+
     [SerializeField] private float runSpeed =5.0f;
     [SerializeField] private float jumpSpeed = 5.0f;
     [SerializeField] private float climbSpeed = 5.0f;
@@ -15,18 +17,19 @@ public class Player : MonoBehaviour
 
     Animator playerAnimator;
 
-    Collider2D playerCollider;
+    CapsuleCollider2D playerBodyCollider;
+
+    BoxCollider2D playerFeetCollider;
 
     // Start is called before the first frame update
     void Start()
     {
         playerCharacter = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        playerCollider = GetComponent<Collider2D>();
+        playerBodyCollider = GetComponent<CapsuleCollider2D>();
+        playerFeetCollider = GetComponent<BoxCollider2D>();
 
         gravityScaleAtStart = playerCharacter.gravityScale;
-
-
     }
 
     // Update is called once per frame
@@ -47,7 +50,7 @@ public class Player : MonoBehaviour
 
         //playerAnimator.SetBool("run", true);
          
-        print(runVelocity);
+        //print(runVelocity);
 
         bool hSpeed = Mathf.Abs(playerCharacter.velocity.x) > Mathf.Epsilon;
 
@@ -63,14 +66,18 @@ public class Player : MonoBehaviour
         if (hMovement)//reverse the current direction of the x-axis
         {
             transform.localScale = new Vector2(Mathf.Sign(playerCharacter.velocity.x), 1f);
+
+            // dust.velocityOverLifetime.VelocityModule.x.scalar
         } 
       
     }
 
     private void Jump()
     {
-        if (!playerCollider.IsTouchingLayers(LayerMask.GetMask ("Ground")))
+        if (!playerFeetCollider.IsTouchingLayers(LayerMask.GetMask ("Ground")))
         {
+            CreateDust();//dust created when player touches ground
+
             //Will stop this function unless true
             return;
         }
@@ -85,7 +92,7 @@ public class Player : MonoBehaviour
 
     private void Climb()
     {
-        if (!playerCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        if (!playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             playerAnimator.SetBool("climb", false);
             playerCharacter.gravityScale = gravityScaleAtStart;
@@ -103,5 +110,10 @@ public class Player : MonoBehaviour
 
         bool vSpeed = Mathf.Abs(playerCharacter.velocity.y) > Mathf.Epsilon;
         playerAnimator.SetBool("climb", vSpeed);
+    }
+
+    void CreateDust()
+    {
+       dust.Play();
     }
 }
