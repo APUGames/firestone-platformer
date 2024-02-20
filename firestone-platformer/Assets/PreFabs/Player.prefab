@@ -170,8 +170,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.010657072, y: 0.025190651}
-  m_Size: {x: 0.5897336, y: 0.8821651}
+  m_Offset: {x: -0.0155136585, y: -0.038630158}
+  m_Size: {x: 0.5800204, y: 0.75452346}
   m_Direction: 0
 --- !u!61 &1702648366464408642
 BoxCollider2D:
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dust: {fileID: 7413859797946741262}
   runSpeed: 5
-  jumpSpeed: 18
+  jumpSpeed: 18.52
   climbSpeed: 5
 --- !u!1 &9139552671491744914
 GameObject:
