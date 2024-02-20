@@ -6,9 +6,12 @@ public class Player : MonoBehaviour
 {
     public ParticleSystem dust;
 
-    [SerializeField] private float runSpeed =5.0f;
+    [SerializeField] private float runSpeed = 5.0f;
     [SerializeField] private float jumpSpeed = 5.0f;
     [SerializeField] private float climbSpeed = 5.0f;
+    [SerializeField] private Vector2 deathSeq = new Vector2 (25f, 25f);
+
+    bool isAlive = true;
 
     private float gravityScaleAtStart;
 
@@ -35,10 +38,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isAlive)
+        {
+            return;
+        }
         Run();
         FlipSprite();
         Jump();
         Climb();
+        Die();
     }
 
     private void Run()
@@ -110,6 +118,16 @@ public class Player : MonoBehaviour
 
         bool vSpeed = Mathf.Abs(playerCharacter.velocity.y) > Mathf.Epsilon;
         playerAnimator.SetBool("climb", vSpeed);
+    }
+
+    private void Die()
+    {
+        if (playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazards")))//add more layers to get it thorugh the death sequence
+        {
+            playerAnimator.SetTrigger("Die");
+            playerCharacter.velocity = deathSeq;
+            isAlive = false;
+        }
     }
 
     void CreateDust()
