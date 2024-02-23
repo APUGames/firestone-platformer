@@ -165,3 +165,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae533f219a55f984387dca299231545f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crystalSFX: {fileID: 8300000, guid: 7e17fce5eb2263948945de305f8509b5, type: 3}
