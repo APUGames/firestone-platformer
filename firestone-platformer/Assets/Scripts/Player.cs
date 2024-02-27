@@ -127,6 +127,8 @@ public class Player : MonoBehaviour
             playerAnimator.SetTrigger("Die");
             playerCharacter.velocity = deathSeq;
             isAlive = false;
+
+            FindAnyObjectByType<GameSession>().ProcessPlayerDeath();
         }
     }
 
