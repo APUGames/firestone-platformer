@@ -234,7 +234,7 @@ MonoBehaviour:
   runSpeed: 5
   jumpSpeed: 18.52
   climbSpeed: 5
-  deathSeq: {x: 5, y: 2}
+  deathSeq: {x: 10, y: 10}
 --- !u!1 &9139552671491744914
 GameObject:
   m_ObjectHideFlags: 0
